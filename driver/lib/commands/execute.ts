@@ -54,6 +54,8 @@ export const execute = async function(
       return requestData(this, args[0]);
     case `longTap`:
       return longTap(this, args[0], args[1]);
+    case `runUnsynchronized`:
+      return runUnsynchronized(this);
     case `waitForFirstFrame`:
       return waitForCondition(this, { conditionName : `FirstFrameRasterizedCondition`});
     default:
@@ -139,3 +141,6 @@ const enterText = async (self: FlutterDriver, text: string) =>
 
 const requestData = async (self: FlutterDriver, message: string) => 
   await self.socket!.executeSocketCommand({ command: `request_data`, message });
+
+const runUnsynchronized = async (self: FlutterDriver) => 
+  await self.socket!.executeSocketCommand({ command: `run_unsynchronized`});
